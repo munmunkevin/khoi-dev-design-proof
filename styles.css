@@ -1,0 +1,463 @@
+/* Clearline — landing page demo (fictional).
+   Plain HTML + CSS, no framework, no external resources.
+   Mobile-first: breakpoints at 768px and 1024px. */
+
+:root {
+  --navy: #1F2A44;
+  --navy-80: #4C5569;
+  --sage: #7A9B76;
+  --sage-dark: #627C5E;
+  --sage-pale: #E4EBE4;
+  --amber: #E8A33D;
+  --amber-pale: #FAEDD8;
+  /* --notebook: the color of the lined paper in Little Sprouts' classroom
+     notebooks. Value #FAF7F0 is unchanged; only the token name carries the
+     reason now, so the palette reads as the team's own paper, not a generic
+     "paper" swatch. */
+  --notebook: #FAF7F0;
+  --white: #FFFFFF;
+  --gray: #5B6472;
+  --line: #E3DDD0;
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--navy);
+  background: var(--notebook);
+}
+
+h1, h2, h3 {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0 0 12px;
+}
+
+/* H1 has real shape without changing font: much larger, tight tracking and leading. */
+h1 {
+  font-size: 2.4rem;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+h2 { font-size: 1.6rem; text-align: left; }
+h3 { font-size: 1.15rem; }
+
+p { margin: 0 0 12px; }
+a { color: var(--navy); }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.demo-note {
+  margin: 0;
+  padding: 8px 16px;
+  background: var(--navy);
+  color: var(--white);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* Header — on mobile only the logo and the CTA button show; nav appears from 768px up.
+   No hamburger menu by design (one-page demo; see CHECK.md). */
+.site-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 64px;
+  flex-wrap: wrap;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  margin-right: auto;
+}
+/* Brand lockup is the full drawn logo (mark + path wordmark), not typed text. */
+.brand svg { display: block; height: 36px; width: auto; }
+.site-header nav { display: none; }
+.site-header nav a {
+  text-decoration: none;
+  color: var(--gray);
+  font-size: 0.95rem;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+.site-header nav a:hover { background: var(--notebook); color: var(--navy); }
+
+/* Buttons — at most one primary button per section (see CHECK.md, fix B3). */
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 12px 22px;
+  border-radius: 10px;
+  border: 2px solid var(--navy);
+  cursor: pointer;
+  text-align: center;
+}
+.btn-primary { background: var(--navy); color: var(--white); }
+.btn-primary:hover { background: var(--navy-80); }
+.btn-ghost { background: var(--white); color: var(--navy); }
+.btn-ghost:hover { background: var(--notebook); }
+.btn-small { padding: 8px 16px; font-size: 0.95rem; }
+.btn-large { padding: 14px 28px; font-size: 1.05rem; }
+
+/* Eyebrow — sentence case with specific content, never all caps.
+   No leading mark: the ✓ motif lives in feature headings, story labels,
+   price lists, and the tick divider (see .tick). */
+.eyebrow {
+  color: var(--sage-dark);
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Hero */
+.hero {
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--notebook) 100%);
+  border-bottom: 1px solid var(--line);
+}
+.hero-inner { padding: 32px 16px 40px; }
+/* Hand-drawn wavy underline under exactly one H1 keyword ("clear"):
+   an uneven SVG path, round line caps, amber — replaces the old <mark> block. */
+.h1-key {
+  position: relative;
+  white-space: nowrap;
+}
+.h1-key svg {
+  position: absolute;
+  left: 0;
+  bottom: -0.14em;
+  width: 100%;
+  height: 0.26em;
+  overflow: visible;
+}
+.lead { font-size: 1.1rem; color: var(--gray); max-width: 34rem; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin: 20px 0 12px; }
+.hero-fine { font-size: 0.9rem; color: var(--gray); }
+
+/* Hero card — keeps the amber top border. Ruled notebook lines behind the
+   task rows: one faint line per task row (row pitch 56px = 48px row + 8px gap),
+   the same lined paper the --notebook token is named after. */
+.hero-card {
+  margin-top: 20px;
+  background: var(--notebook);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--amber);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(31, 42, 68, 0.08);
+}
+.hero-card-title { font-weight: 700; margin-bottom: 14px; }
+.task-list {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 55px, rgba(31, 42, 68, 0.07) 55px, rgba(31, 42, 68, 0.07) 56px);
+}
+.task-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
+.task-list li:last-child { margin-bottom: 0; }
+.check {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px; height: 20px;
+  border: 2px solid var(--sage);
+  border-radius: 50%;
+}
+.check.done { background: var(--sage); border-color: var(--sage); }
+.check.done::after {
+  content: "✓";
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+}
+/* Smaller task type on mobile + tight leading, so a done task's strikethrough
+   stays on one clean line instead of crossing two wrapped lines (fix M6). */
+.task-text { flex: 1 1 auto; min-width: 0; font-size: 0.88rem; line-height: 1.35; }
+.done-text { text-decoration: line-through; color: var(--gray); }
+/* Assignee tags: outlined sage pills. Priority tags: solid amber, uppercase — clearly different. */
+.tag {
+  flex: 0 0 auto;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 2px 8px;
+}
+.tag-person {
+  color: var(--sage-dark);
+  background: var(--white);
+  border: 1.5px solid var(--sage);
+}
+.tag-priority {
+  color: var(--navy);
+  background: var(--amber);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.hero-card-foot { margin: 12px 0 0; font-size: 0.9rem; color: var(--gray); }
+/* The count is a figure, so it is set big with tabular numerals. */
+.hero-card-foot .stat {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--navy);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Sections — headings left-aligned (hero excepted: the H1 stays where it is). */
+section { padding: 56px 0; }
+.section-intro {
+  text-align: left;
+  color: var(--gray);
+  max-width: 38rem;
+  margin: 0 0 32px;
+}
+
+/* The one repeated motif: a plain ✓, no circle, no icon set.
+   It marks feature headings, story days, price lists, and the tick divider. */
+.tick { color: var(--sage-dark); font-weight: 700; }
+
+.features { background: var(--notebook); }
+.feature-grid, .price-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+.feature-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+.feature-card h3 .tick { margin-right: 6px; }
+.feature-card p { margin-bottom: 0; color: var(--gray); }
+.feature-card p + .mini-board { margin-top: 16px; }
+
+/* Second real HTML board inside the wide feature card: the finished tasks,
+   each with the real date it was completed. */
+.mini-board {
+  background: var(--notebook);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.mini-board-title {
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+.mini-board ul { list-style: none; margin: 0; padding: 0; }
+.mini-board li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.95rem;
+}
+.mini-board li:last-child { border-bottom: none; padding-bottom: 0; }
+.mini-check { color: var(--sage-dark); font-weight: 700; flex: 0 0 auto; }
+.mini-task { flex: 1 1 auto; min-width: 0; color: var(--gray); text-decoration: line-through; }
+.mini-date {
+  flex: 0 0 auto;
+  color: var(--gray);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Second mini-board in the wide feature card: the two tasks carried over to
+   next week, with their new due dates. Open circle (not a tick) and no
+   strikethrough — these are still to do. */
+.mini-board + .mini-board { margin-top: 12px; }
+.mini-open { color: var(--sage-dark); font-weight: 700; flex: 0 0 auto; }
+.mini-task-open { flex: 1 1 auto; min-width: 0; color: var(--navy); }
+
+/* Below 768px the mini-board is narrow: smaller type, tighter padding, and
+   no weekday in the date, so every row (longest: "Prep Monday's lesson
+   plan") stays on one line. Desktop is untouched — full dates at 0.95rem. */
+@media (max-width: 767px) {
+  .mini-board { padding: 12px; }
+  .mini-board li { font-size: 0.88rem; }
+  .mini-date { font-size: 0.8rem; }
+  .mini-dow { display: none; }
+}
+
+/* Story — one week told as three dated days, not three quoted praises.
+   No left sage border: the old testimonial quote frame is gone. */
+.story { background: var(--white); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.story-inner { max-width: 760px; }
+.story-day { margin-bottom: 24px; }
+.story-day:last-child { margin-bottom: 0; }
+.story-label { font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+.story-label .tick { margin-right: 6px; }
+.story-day p:last-child { color: var(--gray); margin-bottom: 0; }
+
+/* Tick divider between the story and pricing — the motif as a section mark. */
+.tick-rule {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 16px 0;
+  color: var(--sage-dark);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.tick-rule::before, .tick-rule::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--line);
+}
+
+.pricing { background: var(--notebook); }
+.price-card {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+/* Featured card — the highlighted plan reads at a glance: solid navy
+   background with white text and an amber button, plus the level-1 shadow
+   per DESIGN.md §5. No border is visible on it (navy on navy). */
+.price-card.featured {
+  background: var(--navy);
+  border: 2px solid var(--navy);
+  box-shadow: 0 4px 16px rgba(31, 42, 68, 0.08);
+}
+.price-card.featured h3 { color: var(--white); }
+.price-card.featured .price-note { color: #D2D4DA; }
+.price-card.featured .price { color: var(--white); }
+.price-card.featured .price-per { color: #D2D4DA; }
+.price-card.featured ul { color: #D2D4DA; }
+.price-card.featured li::before { color: var(--amber); }
+.price-card.featured .btn-primary {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: var(--navy);
+}
+.price-card.featured .btn-primary:hover { background: #EDB564; }
+/* Plain note naming the team that uses this plan — replaces the old template badge. */
+.price-note {
+  color: var(--gray);
+  font-size: 0.95rem;
+  margin-bottom: 0;
+}
+/* Prices are figures: big, with tabular numerals. */
+.price { font-size: 2.5rem; font-weight: 700; margin: 8px 0 16px; font-variant-numeric: tabular-nums; }
+.price-per { font-size: 1rem; font-weight: 400; color: var(--gray); }
+.price-card ul { margin: 0 0 20px; padding-left: 0; list-style: none; color: var(--gray); flex: 1 1 auto; }
+.price-card li { margin-bottom: 6px; padding-left: 26px; position: relative; }
+.price-card li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--sage-dark);
+  font-weight: 700;
+}
+.price-card .btn { align-self: stretch; }
+
+/* FAQ — title left-aligned to match the left-aligned questions */
+.faq { background: var(--white); border-top: 1px solid var(--line); }
+.faq-inner { max-width: 760px; }
+.faq-item { border-bottom: 1px solid var(--line); }
+.faq-q {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 18px 0;
+  font: inherit;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--navy);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.faq-q::after { content: "+"; color: var(--sage-dark); font-size: 1.3rem; line-height: 1; }
+.faq-item.open .faq-q::after { content: "−"; }
+.faq-a p { color: var(--gray); margin-bottom: 18px; }
+
+/* CTA + footer — CTA content left-aligned like the other sections. */
+.cta { background: var(--navy); color: var(--white); }
+.cta-inner { text-align: left; max-width: 40rem; }
+.cta-inner h2 { color: var(--white); }
+.cta-inner p { color: #D2D4DA; }
+.cta .btn-primary { background: var(--amber); border-color: var(--amber); color: var(--navy); }
+.cta .btn-primary:hover { background: #EDB564; }
+.cta-fine { font-size: 0.9rem; }
+.site-footer { background: var(--white); border-top: 1px solid var(--line); padding: 32px 0; }
+.footer-inner p { color: var(--gray); font-size: 0.9rem; }
+.footer-inner p strong { color: var(--navy); }
+
+/* Breakpoint 768px: nav appears, 2 columns; wide feature card spans both. */
+@media (min-width: 768px) {
+  .site-header nav { display: flex; gap: 4px; flex-wrap: wrap; }
+  h1 { font-size: 2.9rem; }
+  .hero-inner { padding: 48px 16px 56px; }
+  .hero-card { margin-top: 32px; }
+  .task-text { font-size: 1rem; }
+  .feature-grid { grid-template-columns: 1fr 1fr; }
+  .feature-wide { grid-column: 1 / -1; }
+  .price-grid { grid-template-columns: 1fr 1fr; }
+  .price-card.featured { grid-column: 1 / -1; }
+  .faq-inner { padding: 0 16px; }
+}
+
+/* Breakpoint 1024px: hero in 2 columns; features in 2 columns (wide card
+   left spanning both rows, two narrow cards stacked right — no empty cell);
+   pricing in 3 columns. */
+@media (min-width: 1024px) {
+  h1 { font-size: 3.2rem; }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 48px;
+    align-items: center;
+    padding: 72px 16px 80px;
+  }
+  .hero-card { margin-top: 0; }
+  .feature-grid { grid-template-columns: 2fr 1fr; }
+  .feature-wide { grid-column: 1; grid-row: 1 / span 2; }
+  .price-grid { grid-template-columns: repeat(3, 1fr); }
+  .price-card.featured { grid-column: auto; }
+}
